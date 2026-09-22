@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vincue Unleashed — Spyne</title>
+    <meta
+      name="description"
+      content="Register your interest for Vincue Unleashed by Spyne."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&family=Syne:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="atmosphere" aria-hidden="true"></div>
+
+    <main class="page">
+      <section class="hero" aria-labelledby="event-title">
+        <p class="brand-mark reveal" style="--d: 0s">Spyne</p>
+        <h1 id="event-title" class="reveal" style="--d: 0.08s">
+          Vincue<br />Unleashed
+        </h1>
+        <p class="lede reveal" style="--d: 0.16s">
+          Join Spyne for an exclusive event on the future of automotive retail
+          with Vincue.
+        </p>
+      </section>
+
+      <section class="form-panel reveal" style="--d: 0.24s" aria-labelledby="form-title">
+        <div class="form-shell" id="form-shell">
+          <h2 id="form-title">Reserve your spot</h2>
+          <p class="form-sub">Share a few details and we’ll follow up with the invite.</p>
+
+          <form id="lead-form" novalidate>
+            <div class="field">
+              <label for="name">Full name</label>
+              <input
+                id="name"
+                name="name"
+                type="text"
+                autocomplete="name"
+                required
+                placeholder="Alex Morgan"
+              />
+            </div>
+
+            <div class="field">
+              <label for="email">Work email</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                autocomplete="email"
+                required
+                placeholder="alex@company.com"
+              />
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="company">Company</label>
+                <input
+                  id="company"
+                  name="company"
+                  type="text"
+                  autocomplete="organization"
+                  required
+                  placeholder="Acme Motors"
+                />
+              </div>
+              <div class="field">
+                <label for="title">Job title</label>
+                <input
+                  id="title"
+                  name="title"
+                  type="text"
+                  autocomplete="organization-title"
+                  placeholder="VP of Digital"
+                />
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="phone">Phone <span class="optional">(optional)</span></label>
+              <input
+                id="phone"
+                name="phone"
+                type="tel"
+                autocomplete="tel"
+                placeholder="+1 555 000 0000"
+              />
+            </div>
+
+            <p class="form-error" id="form-error" role="alert" hidden></p>
+
+            <button type="submit" class="submit-btn">
+              <span class="submit-label">Request invite</span>
+              <span class="submit-arrow" aria-hidden="true">→</span>
+            </button>
+          </form>
+        </div>
+
+        <div class="success-shell" id="success-shell" hidden>
+          <p class="success-kicker">You’re on the list</p>
+          <h2>Thanks for registering</h2>
+          <p class="success-copy">
+            We’ll send Vincue Unleashed details to your inbox shortly.
+          </p>
+          <button type="button" class="ghost-btn" id="reset-btn">
+            Submit another response
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

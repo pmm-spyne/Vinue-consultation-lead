@@ -1,0 +1,333 @@
+:root {
+  --ink: #101820;
+  --ink-soft: #3a4553;
+  --muted: #6b7685;
+  --line: rgba(16, 24, 32, 0.14);
+  --surface: rgba(255, 255, 255, 0.78);
+  --surface-solid: #ffffff;
+  --accent: #0f8f7a;
+  --accent-deep: #0a6b5c;
+  --glow: rgba(15, 143, 122, 0.28);
+  --page: #d9e2ea;
+  --font-display: "Syne", sans-serif;
+  --font-body: "Outfit", sans-serif;
+  --radius: 14px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--page);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+.atmosphere {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse 70% 55% at 12% 18%, rgba(15, 143, 122, 0.22), transparent 58%),
+    radial-gradient(ellipse 55% 45% at 88% 12%, rgba(36, 72, 120, 0.18), transparent 55%),
+    radial-gradient(ellipse 50% 40% at 70% 88%, rgba(15, 143, 122, 0.12), transparent 50%),
+    linear-gradient(160deg, #cfd9e4 0%, #e6edf3 42%, #d5e0e8 100%);
+}
+
+.atmosphere::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.35;
+  background-image:
+    linear-gradient(rgba(16, 24, 32, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 24, 32, 0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, black, transparent 85%);
+}
+
+.page {
+  min-height: 100vh;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: clamp(1.5rem, 4vw, 3rem);
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: center;
+}
+
+.hero {
+  padding-block: 1rem;
+}
+
+.brand-mark {
+  margin: 0 0 1.25rem;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+}
+
+.hero h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(3.4rem, 8vw, 5.75rem);
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+}
+
+.lede {
+  margin: 1.35rem 0 0;
+  max-width: 28ch;
+  font-size: 1.1rem;
+  color: var(--ink-soft);
+}
+
+.form-panel {
+  position: relative;
+}
+
+.form-shell,
+.success-shell {
+  background: var(--surface);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  border-radius: calc(var(--radius) + 4px);
+  padding: clamp(1.4rem, 3vw, 2rem);
+  box-shadow: 0 18px 40px rgba(16, 24, 32, 0.08);
+}
+
+.form-shell h2,
+.success-shell h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.form-sub,
+.success-copy {
+  margin: 0.4rem 0 1.4rem;
+  color: var(--muted);
+  font-size: 0.98rem;
+}
+
+#lead-form {
+  display: grid;
+  gap: 0.95rem;
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.85rem;
+}
+
+.field {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.field label {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--ink-soft);
+}
+
+.optional {
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.field input {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface-solid);
+  color: var(--ink);
+  font: inherit;
+  font-size: 1rem;
+  padding: 0.78rem 0.9rem;
+  outline: none;
+  transition:
+    border-color 0.25s var(--ease),
+    box-shadow 0.25s var(--ease),
+    transform 0.25s var(--ease);
+}
+
+.field input::placeholder {
+  color: #9aa3af;
+}
+
+.field input:hover {
+  border-color: rgba(15, 143, 122, 0.35);
+}
+
+.field input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--glow);
+  transform: translateY(-1px);
+}
+
+.field input.is-invalid {
+  border-color: #c2410c;
+  box-shadow: 0 0 0 3px rgba(194, 65, 12, 0.15);
+}
+
+.form-error {
+  margin: 0;
+  color: #9a3412;
+  font-size: 0.9rem;
+}
+
+.submit-btn {
+  margin-top: 0.35rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  width: 100%;
+  border: 0;
+  border-radius: 10px;
+  background: var(--ink);
+  color: #f4f7fa;
+  font: inherit;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.95rem 1.1rem;
+  cursor: pointer;
+  transition:
+    background 0.25s var(--ease),
+    transform 0.25s var(--ease),
+    box-shadow 0.25s var(--ease);
+}
+
+.submit-btn:hover {
+  background: var(--accent-deep);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(10, 107, 92, 0.25);
+}
+
+.submit-btn:active {
+  transform: translateY(0);
+}
+
+.submit-arrow {
+  display: inline-block;
+  transition: transform 0.25s var(--ease);
+}
+
+.submit-btn:hover .submit-arrow {
+  transform: translateX(4px);
+}
+
+.success-shell {
+  text-align: left;
+  animation: rise 0.45s var(--ease) both;
+}
+
+.success-kicker {
+  margin: 0 0 0.55rem;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+}
+
+.ghost-btn {
+  margin-top: 0.5rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-weight: 500;
+  padding: 0.7rem 1rem;
+  cursor: pointer;
+  transition:
+    border-color 0.2s var(--ease),
+    background 0.2s var(--ease);
+}
+
+.ghost-btn:hover {
+  border-color: var(--accent);
+  background: rgba(15, 143, 122, 0.08);
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  animation: rise 0.7s var(--ease) forwards;
+  animation-delay: var(--d, 0s);
+}
+
+@keyframes rise {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 860px) {
+  .page {
+    grid-template-columns: 1fr;
+    align-items: start;
+    padding-top: 2rem;
+    padding-bottom: 2.5rem;
+  }
+
+  .hero {
+    padding-block: 0;
+  }
+
+  .lede {
+    max-width: 38ch;
+  }
+}
+
+@media (max-width: 560px) {
+  .field-row {
+    grid-template-columns: 1fr;
+  }
+
+  .hero h1 {
+    font-size: clamp(3rem, 14vw, 3.8rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .success-shell {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .field input,
+  .submit-btn,
+  .submit-arrow,
+  .ghost-btn {
+    transition: none;
+  }
+}
