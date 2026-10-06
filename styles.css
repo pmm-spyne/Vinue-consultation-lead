@@ -703,6 +703,24 @@ a {
   flex-shrink: 0;
 }
 
+.checklist__text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.checklist__label {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.checklist__desc {
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
 /* Gap report */
 
 .gap-report {
