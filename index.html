@@ -3,120 +3,593 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vincue Unleashed — Spyne</title>
+    <title>Free Dealership Diagnostic — Spyne DealerOS</title>
     <meta
       name="description"
-      content="Register your interest for Vincue Unleashed by Spyne."
+      content="Book a free Spyne dealership diagnostic. We review your inventory merchandising and lead handling, then show you exactly where you're losing ground."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&family=Syne:wght@600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono&family=Inter:wght@400;500;600;700&family=Roboto:wght@500;900&family=Space+Grotesk:wght@400;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="atmosphere" aria-hidden="true"></div>
+    <header class="site-nav">
+      <div class="container site-nav__inner">
+        <a class="brand" href="#" aria-label="Spyne home">
+          <span class="brand__wordmark" aria-hidden="true"></span>
+          <span class="brand__mark" aria-hidden="true">
+            <img src="assets/logo-mark.png" alt="" />
+          </span>
+        </a>
+      </div>
+    </header>
 
-    <main class="page">
-      <section class="hero" aria-labelledby="event-title">
-        <p class="brand-mark reveal" style="--d: 0s">Spyne</p>
-        <h1 id="event-title" class="reveal" style="--d: 0.08s">
-          Vincue<br />Unleashed
-        </h1>
-        <p class="lede reveal" style="--d: 0.16s">
-          Join Spyne for an exclusive event on the future of automotive retail
-          with Vincue.
-        </p>
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="container hero__inner">
+          <div class="hero__promise">
+            <img
+              class="hero__partners"
+              src="assets/spyne-x-vincue.png"
+              width="251"
+              height="47"
+              alt="Spyne × Vincue Unleashed 2026"
+            />
+            <h1 id="hero-title" class="hero__title">Find the gaps costing your dealership</h1>
+            <p class="hero__description">
+              We review your inventory merchandising and lead handling, then show you exactly
+              where you're losing ground.
+            </p>
+            <ul class="inclusions">
+              <li>
+                <img src="assets/circle-check.svg" width="18" height="18" alt="" />
+                Merchandising and inventory review
+              </li>
+              <li>
+                <img src="assets/circle-check.svg" width="18" height="18" alt="" />
+                Lead and appointment handling review
+              </li>
+              <li>
+                <img src="assets/circle-check.svg" width="18" height="18" alt="" />
+                A gap report, walked through on a short call
+              </li>
+            </ul>
+            <p class="fine-print">Free. No commitment.</p>
+          </div>
+
+          <div class="booking-card" id="book">
+            <div class="booking-card__form" id="form-shell">
+              <div class="booking-card__intro">
+                <h2>Book your free diagnostic</h2>
+                <p>Takes under a minute.</p>
+              </div>
+
+              <form id="diagnostic-form" novalidate>
+                <div class="field">
+                  <label for="name">Full name</label>
+                  <input id="name" name="name" type="text" autocomplete="name" placeholder="Your full name" required />
+                </div>
+
+                <div class="field">
+                  <label for="email">Work email</label>
+                  <input id="email" name="email" type="email" autocomplete="email" placeholder="you@dealership.com" required />
+                </div>
+
+                <div class="field-row">
+                  <div class="field">
+                    <label for="phone">Phone</label>
+                    <input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="Phone number" />
+                  </div>
+                  <div class="field">
+                    <label for="dealership">Dealership name</label>
+                    <input id="dealership" name="dealership" type="text" autocomplete="organization" placeholder="Dealership name" />
+                  </div>
+                </div>
+
+                <div class="field field--with-hint">
+                  <label for="website">Dealership website *</label>
+                  <input
+                    id="website"
+                    name="website"
+                    type="url"
+                    inputmode="url"
+                    autocomplete="url"
+                    placeholder="https://yourdealership.com"
+                    aria-describedby="website-hint"
+                    required
+                  />
+                  <p class="field__hint" id="website-hint">Required to run the scan.</p>
+                </div>
+
+                <div class="field">
+                  <label for="rooftops">Number of rooftops</label>
+                  <div class="select">
+                    <select id="rooftops" name="rooftops">
+                      <option value="" selected>Select number of rooftops</option>
+                      <option value="1">1 rooftop</option>
+                      <option value="2-5">2–5 rooftops</option>
+                      <option value="6-10">6–10 rooftops</option>
+                      <option value="11-25">11–25 rooftops</option>
+                      <option value="25+">25+ rooftops</option>
+                    </select>
+                    <img src="assets/chevron-down.svg" width="15" height="15" alt="" />
+                  </div>
+                </div>
+
+                <p class="form-error" id="form-error" role="alert" hidden></p>
+
+                <button type="submit" class="btn-gradient btn-gradient--form">
+                  Book My Free Diagnostic
+                  <img src="assets/arrow-right.svg" width="18" height="18" alt="" />
+                </button>
+              </form>
+
+              <p class="reassurance">
+                <img src="assets/shield-check.svg" width="14" height="14" alt="" />
+                Free. No commitment.
+              </p>
+            </div>
+
+            <div class="booking-card__success" id="success-shell" hidden>
+              <img src="assets/circle-check.svg" width="36" height="36" alt="" />
+              <h2>You're booked in</h2>
+              <p>We'll run the scan on your website and reach out to schedule your walkthrough.</p>
+              <button type="button" class="btn-ghost" id="reset-btn">Book for another dealership</button>
+            </div>
+          </div>
+        </div>
       </section>
 
-      <section class="form-panel reveal" style="--d: 0.24s" aria-labelledby="form-title">
-        <div class="form-shell" id="form-shell">
-          <h2 id="form-title">Reserve your spot</h2>
-          <p class="form-sub">Share a few details and we’ll follow up with the invite.</p>
-
-          <form id="lead-form" novalidate>
-            <div class="field">
-              <label for="name">Full name</label>
-              <input
-                id="name"
-                name="name"
-                type="text"
-                autocomplete="name"
-                required
-                placeholder="Alex Morgan"
-              />
-            </div>
-
-            <div class="field">
-              <label for="email">Work email</label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                autocomplete="email"
-                required
-                placeholder="alex@company.com"
-              />
-            </div>
-
-            <div class="field-row">
-              <div class="field">
-                <label for="company">Company</label>
-                <input
-                  id="company"
-                  name="company"
-                  type="text"
-                  autocomplete="organization"
-                  required
-                  placeholder="Acme Motors"
-                />
-              </div>
-              <div class="field">
-                <label for="title">Job title</label>
-                <input
-                  id="title"
-                  name="title"
-                  type="text"
-                  autocomplete="organization-title"
-                  placeholder="VP of Digital"
-                />
-              </div>
-            </div>
-
-            <div class="field">
-              <label for="phone">Phone <span class="optional">(optional)</span></label>
-              <input
-                id="phone"
-                name="phone"
-                type="tel"
-                autocomplete="tel"
-                placeholder="+1 555 000 0000"
-              />
-            </div>
-
-            <p class="form-error" id="form-error" role="alert" hidden></p>
-
-            <button type="submit" class="submit-btn">
-              <span class="submit-label">Request invite</span>
-              <span class="submit-arrow" aria-hidden="true">→</span>
-            </button>
-          </form>
-        </div>
-
-        <div class="success-shell" id="success-shell" hidden>
-          <p class="success-kicker">You’re on the list</p>
-          <h2>Thanks for registering</h2>
-          <p class="success-copy">
-            We’ll send Vincue Unleashed details to your inbox shortly.
+      <section class="trust-strip" aria-label="Trusted by dealerships">
+        <div class="container">
+          <p class="trust-strip__copy">
+            Trusted by <strong>4,500+ dealerships</strong> across <strong>70+ countries</strong>
           </p>
-          <button type="button" class="ghost-btn" id="reset-btn">
-            Submit another response
-          </button>
+          <ul class="logo-strip">
+            <li class="logo logo--mark">
+              <span class="logo__mark logo__mark--honda">H</span>
+              <span class="logo__name">HONDA</span>
+            </li>
+            <li class="logo logo--stacked">
+              <span class="logo__name logo__name--wide">ASBURY</span>
+              <span class="logo__sub">AUTOMOTIVE GROUP</span>
+            </li>
+            <li class="logo logo--mark">
+              <span class="logo__mark logo__mark--slattery">S</span>
+              <span class="logo__name">SLATTERY</span>
+            </li>
+            <li class="logo logo--stacked">
+              <span class="logo__name logo__name--performance">PERFORMANCE</span>
+              <span class="logo__sub">AUTOMOTIVE NETWORK</span>
+            </li>
+            <li class="logo logo--mark">
+              <span class="logo__mark logo__mark--darrow">D</span>
+              <span class="logo__name">DARROW</span>
+            </li>
+            <li class="logo logo--mark">
+              <span class="logo__mark logo__mark--vincue">V</span>
+              <span class="logo__name">VINCUE</span>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section section--tinted" aria-labelledby="look-title">
+        <div class="container">
+          <div class="section-intro">
+            <p class="eyebrow">What We Look At</p>
+            <h2 id="look-title">Two places dealers lose the most ground</h2>
+            <p class="section-intro__description">
+              Your diagnostic covers both ends of the funnel: how your cars show up online, and what
+              happens when a shopper reaches out.
+            </p>
+          </div>
+
+          <div class="card-pair">
+            <article class="review-card gradient-border">
+              <header class="review-card__header">
+                <span class="icon-tile"><img src="assets/car-front.svg" width="24" height="24" alt="" /></span>
+                <div>
+                  <h3>Merchandising and inventory</h3>
+                  <p>How your cars show up online</p>
+                </div>
+              </header>
+              <ul class="checklist">
+                <li><img src="assets/check.svg" width="17" height="17" alt="" />How long a unit takes to go live after it is acquired</li>
+                <li><img src="assets/check.svg" width="17" height="17" alt="" />Whether your VDPs carry real photos, 360 spins and video, or placeholders</li>
+                <li><img src="assets/check.svg" width="17" height="17" alt="" />Whether your listings look consistent across your website and marketplaces</li>
+                <li><img src="assets/check.svg" width="17" height="17" alt="" />Whether your promotions and offers are visible on the listing itself</li>
+                <li><img src="assets/check.svg" width="17" height="17" alt="" />How your website holds up on mobile</li>
+              </ul>
+            </article>
+
+            <article class="review-card gradient-border">
+              <header class="review-card__header">
+                <span class="icon-tile"><img src="assets/messages-square.svg" width="24" height="24" alt="" /></span>
+                <div>
+                  <h3>Leads and appointments</h3>
+                  <p>What happens when a shopper reaches out</p>
+                </div>
+              </header>
+              <ul class="checklist">
+                <li><img src="assets/check.svg" width="17" height="17" alt="" />How fast a new lead gets a first response</li>
+                <li><img src="assets/check.svg" width="17" height="17" alt="" />What happens to calls and leads after hours</li>
+                <li><img src="assets/check.svg" width="17" height="17" alt="" />How many leads turn into set appointments, and how many show</li>
+                <li><img src="assets/check.svg" width="17" height="17" alt="" />Whether service calls get booked or go to voicemail</li>
+                <li><img src="assets/check.svg" width="17" height="17" alt="" />Whether trade-in interest is being captured</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="gap-report" aria-labelledby="report-title">
+        <div class="gap-report__inner">
+          <div class="gap-report__content">
+            <div class="section-intro">
+              <p class="eyebrow">What You Get</p>
+              <h2 id="report-title">A gap report for your dealership</h2>
+              <p class="section-intro__description">
+                Each area is scored against industry benchmarks, so you can see where you stand and
+                what to fix first.
+              </p>
+            </div>
+
+            <div class="report-card">
+              <div class="report-card__title">
+                <span class="report-card__identity">
+                  <img src="assets/file-chart-column.svg" width="24" height="24" alt="" />
+                  Dealership diagnostic
+                </span>
+                <span class="tag"><span class="gradient-text">Sample report</span></span>
+              </div>
+              <table class="report-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Area</th>
+                    <th scope="col">Your dealership</th>
+                    <th scope="col">Benchmark</th>
+                    <th scope="col">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">Time to go live</th>
+                    <td>–</td>
+                    <td>–</td>
+                    <td><span class="status"><img src="assets/status-indicator.svg" width="5" height="5" alt="" />Pending</span></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">VDP media quality</th>
+                    <td>–</td>
+                    <td>–</td>
+                    <td><span class="status"><img src="assets/status-indicator.svg" width="5" height="5" alt="" />Pending</span></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Lead response time</th>
+                    <td>–</td>
+                    <td>–</td>
+                    <td><span class="status"><img src="assets/status-indicator.svg" width="5" height="5" alt="" />Pending</span></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">After-hours coverage</th>
+                    <td>–</td>
+                    <td>–</td>
+                    <td><span class="status"><img src="assets/status-indicator.svg" width="5" height="5" alt="" />Pending</span></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Service call handling</th>
+                    <td>–</td>
+                    <td>–</td>
+                    <td><span class="status"><img src="assets/status-indicator.svg" width="5" height="5" alt="" />Pending</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="gap-report__visual">
+            <img src="assets/gap-report.png" alt="Sample Spyne gap report showing detail by channel and segment" />
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--muted" aria-labelledby="solutions-title">
+        <div class="container">
+          <div class="section-intro">
+            <p class="eyebrow">How Dealers Close the Gap</p>
+            <h2 id="solutions-title">Built for both ends of the funnel</h2>
+            <p class="section-intro__description">
+              Studio OS fixes how your cars show up online. Vini AI fixes what happens when a shopper
+              reaches out.
+            </p>
+          </div>
+
+          <div class="card-pair">
+            <article class="product-card gradient-border">
+              <div class="product-card__visual product-card__visual--studio" aria-hidden="true">
+                <div class="studio-mock">
+                  <div class="m studio-mock__canvas">
+                    <div class="m studio-thumbs">
+                      <div class="m studio-thumb" style="left: 0"><img src="assets/studio-thumb-1.png" alt="" /></div>
+                      <div class="m studio-thumb" style="left: 88.85px"><img src="assets/studio-thumb-2.png" alt="" /></div>
+                      <div class="m studio-thumb studio-thumb--fill" style="left: 177.7px"><img src="assets/studio-thumb-3.png" alt="" /></div>
+                      <div class="m studio-thumb" style="left: 266.55px"><img src="assets/studio-thumb-4.png" alt="" /></div>
+                      <div class="m studio-thumb" style="left: 355.39px"><img src="assets/studio-thumb-5.png" alt="" /></div>
+                      <div class="m studio-thumb studio-thumb--last" style="left: 444.24px"><img src="assets/studio-thumb-6.png" alt="" /></div>
+                      <div class="m studio-thumbs__fade"></div>
+                    </div>
+
+                    <div class="m studio-main"><img src="assets/studio-main.png" alt="" /></div>
+
+                    <div class="m studio-pill">
+                      <span class="m studio-pill__call">
+                        <img src="assets/studio-call.svg" width="4.529" height="4.53" alt="" />
+                        <span class="studio-pill__call-label">Call</span>
+                      </span>
+                      <span class="m studio-pill__icon" style="left: 29.75px; top: 4.02px">
+                        <span><img src="assets/studio-vector.svg" width="5.036" height="4.532" alt="" /></span>
+                      </span>
+                      <span class="m studio-pill__icon" style="left: 45.19px; top: 4.02px">
+                        <span><img src="assets/studio-mail.svg" width="5.793" height="4.657" alt="" /></span>
+                      </span>
+                      <span class="m studio-pill__greeting">Hey! I'm <em>Vini</em></span>
+                      <span class="m studio-pill__availability">Available 24/7 to help you!</span>
+                      <span class="m studio-pill__avatar">
+                        <span class="studio-pill__avatar-circle">
+                          <img class="m" src="assets/studio-call-avatar.svg" style="left: 2.93px; top: 3.63px; width: 10.432px; height: 10.432px" alt="" />
+                          <img class="m studio-pill__person" src="assets/agent-avatar.png" alt="" />
+                        </span>
+                        <img class="m" src="assets/studio-online-dot.svg" style="left: 12.05px; top: 0.44px; width: 3.144px; height: 3.144px" alt="" />
+                      </span>
+                    </div>
+
+                    <div class="m studio-toolbar">
+                      <span class="studio-chip studio-chip--white">
+                        <span class="studio-chip__group">
+                          <img src="assets/studio-eye.svg" width="7.07" height="7.07" alt="" />
+                          See Inside
+                        </span>
+                        <img src="assets/studio-eye-2.svg" width="7.07" height="7.07" alt="" />
+                      </span>
+                      <span class="studio-chip studio-chip--grey">
+                        Hotspots
+                        <span class="studio-chip__toggle"><img src="assets/studio-hotspots.svg" alt="" /></span>
+                      </span>
+                      <img src="assets/studio-fullscreen.svg" width="12.726" height="12.726" alt="" />
+                    </div>
+
+                    <span class="m studio-arrow" style="left: 293.2px; top: 142.9px"><img src="assets/studio-chevron-right.svg" alt="" /></span>
+                    <span class="m studio-arrow" style="left: 416.25px; top: 204.55px"><img src="assets/studio-chevron-right-2.svg" alt="" /></span>
+                    <span class="m studio-arrow studio-arrow--flip" style="left: 18.05px; top: 142.9px"><img src="assets/studio-chevron-left.svg" alt="" /></span>
+
+                    <div class="m studio-side" style="top: 121.48px"><img src="assets/studio-side-2.png" alt="" /></div>
+                    <div class="m studio-side studio-side--active" style="top: 56.27px"><img src="assets/studio-side-1.png" alt="" /></div>
+
+                    <p class="m studio-text studio-text--title">2021 Volvo S60 T4 Inscription</p>
+                    <p class="m studio-text studio-text--sub" style="left: 20.54px; top: 265.64px">Mild Hybrid(Electric + Petrol)</p>
+                    <p class="m studio-text studio-text--price">$77,595</p>
+                    <p class="m studio-text studio-text--sub" style="left: 349.4px; top: 262.85px; font-size: 8.511px; line-height: 11.785px; letter-spacing: -0.0524px">$305/month est.*</p>
+
+                    <span class="m studio-play"><img src="assets/studio-play.svg" alt="" /></span>
+                    <p class="m studio-text studio-text--video">Feature Video</p>
+                    <img class="m" src="assets/studio-360.svg" style="left: 361.02px; top: 147.34px; width: 32.071px; height: 9.398px" alt="" />
+                    <span class="m studio-360-ring"><img src="assets/studio-360-ellipse.svg" alt="" /></span>
+
+                    <span class="m studio-zoom">
+                      <img src="assets/studio-minus.svg" width="8.226" height="8.226" alt="" />
+                      <span>25%</span>
+                      <img src="assets/studio-plus.svg" width="8.226" height="8.226" alt="" />
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="product-card__result">
+                <h3 class="gradient-text">Studio OS</h3>
+                <p class="product-card__outcome">Get more leads with AI-powered merchandising</p>
+                <p class="product-card__stat">89%</p>
+                <p class="product-card__label">Faster time-to-market</p>
+              </div>
+            </article>
+
+            <article class="product-card gradient-border">
+              <div class="product-card__visual product-card__visual--vini" aria-hidden="true">
+                <div class="vini-mock">
+                  <div class="m vini-car-card">
+                    <div class="m vini-car-card__hero">
+                      <div class="m vini-crop" style="left: -19.73px; top: -4.57px; width: 110.168px; height: 61.97px">
+                        <img class="m" src="assets/vini-car-main.png" style="left: -5.04%; top: -8.89%; width: 114.27%; height: 114.27%" alt="" />
+                      </div>
+                      <span class="m vini-arrow" style="left: 66.63px"><img src="assets/vini-chevron-right.svg" alt="" /></span>
+                      <span class="m vini-arrow vini-arrow--flip" style="left: 2.88px"><img src="assets/vini-chevron-left.svg" alt="" /></span>
+                      <div class="m vini-pill">
+                        <span class="m vini-pill__call">
+                          <img src="assets/vini-call.svg" width="1.97" height="1.97" alt="" />
+                          <span class="vini-pill__call-label">Call</span>
+                        </span>
+                        <span class="m vini-pill__icon" style="left: 12.93px">
+                          <span><img src="assets/vini-vector.svg" width="2.19" height="1.971" alt="" /></span>
+                        </span>
+                        <span class="m vini-pill__icon" style="left: 19.65px">
+                          <span><img src="assets/vini-mail.svg" width="2.52" height="2.026" alt="" /></span>
+                        </span>
+                        <span class="m vini-pill__avatar">
+                          <span class="vini-pill__avatar-circle">
+                            <img class="m" src="assets/vini-call-avatar.svg" style="left: 1.14px; top: 1.4px; width: 4.038px; height: 4.038px" alt="" />
+                            <img class="m vini-pill__person" src="assets/agent-avatar.png" alt="" />
+                          </span>
+                          <img class="m" src="assets/vini-online-dot.svg" style="left: 4.67px; top: 0.17px; width: 1.217px; height: 1.217px" alt="" />
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="m vini-thumb vini-thumb--bordered" style="left: 4.95px">
+                      <div class="m vini-crop" style="left: -23.7px; top: -9.86px; width: 68.827px; height: 38.715px">
+                        <img class="m" src="assets/vini-car-2.png" style="left: 31.21%; top: 21.67%; width: 50.19%; height: 50.19%" alt="" />
+                        <span class="m vini-shade" style="background: rgba(0, 0, 0, 0.8)"></span>
+                      </div>
+                      <span class="m vini-thumb__play"><img src="assets/vini-play.svg" alt="" /></span>
+                    </div>
+                    <div class="m vini-thumb" style="left: 30.31px">
+                      <div class="m vini-crop" style="left: -27.61px; top: -11.96px; width: 77.124px; height: 43.382px">
+                        <img class="m" src="assets/vini-car-3.png" style="left: 21.75%; top: 11.74%; width: 58.85%; height: 64.85%" alt="" />
+                        <span class="m vini-shade" style="background: rgba(0, 0, 0, 0.5)"></span>
+                      </div>
+                      <img class="m" src="assets/vini-360.svg" style="left: 7.51px; top: 7.67px; width: 8.592px; height: 2.682px" alt="" />
+                    </div>
+                    <div class="m vini-thumb vini-thumb--flip" style="left: 55.68px">
+                      <div class="m vini-crop" style="left: -23.46px; top: -9.63px; width: 68.827px; height: 38.715px">
+                        <img class="m" src="assets/vini-car-4.png" style="left: 0.54%; top: -11.41%; width: 99.29%; height: 99.29%" alt="" />
+                        <span class="m vini-shade" style="background: linear-gradient(to right, #000 37.459%, rgba(0, 0, 0, 0) 53.438%)"></span>
+                      </div>
+                      <span class="m vini-arrow vini-arrow--dark vini-arrow--flip" style="left: 0.91px; top: 6.69px"><img src="assets/vini-chevron-left-2.svg" alt="" /></span>
+                    </div>
+
+                    <p class="m vini-text vini-text--title" style="left: 8px; top: 82.64px; width: 58.053px">2026 Volvo XC90 SUV</p>
+                    <p class="m vini-text vini-text--sub" style="left: 7.94px; top: 88.57px; font-size: 2.909px; line-height: 4.027px">Grants Pass, OR</p>
+                    <img class="m" src="assets/vini-pin.svg" style="left: 41.8px; top: 67.51px; width: 3.852px; height: 3.047px" alt="" />
+                  </div>
+
+                  <img class="m vini-agent" src="assets/vini-agent.png" alt="" />
+
+                  <div class="m vini-float vini-appointments">
+                    <p class="m vini-metric-label" style="left: 7.62px; top: 4.77px; font-size: 6.507px; letter-spacing: -0.3254px">Appointments</p>
+                    <p class="m vini-metric-value" style="left: 6.64px; top: 12.91px; font-size: 14.642px; letter-spacing: -0.7321px">+67%</p>
+                    <span class="m vini-faces">
+                      <img src="assets/vini-face-1.png" style="width: 20.659px; height: 20.659px" alt="" />
+                      <img src="assets/vini-face-2.png" style="width: 21.396px; height: 21.396px" alt="" />
+                      <img src="assets/vini-face-3.png" style="width: 21.362px; height: 21.362px" alt="" />
+                      <img src="assets/vini-face-4.png" style="width: 21.637px; height: 21.637px" alt="" />
+                    </span>
+                    <img class="m" src="assets/vini-trend.svg" style="left: 114.78px; top: 12.12px; width: 15.748px; height: 9.085px" alt="" />
+                  </div>
+
+                  <div class="m vini-float vini-booking">
+                    <p class="m vini-booking__title">Booking Confirmed!</p>
+                    <img class="m vini-booking__image" src="assets/vini-booking.png" alt="" />
+                    <span class="m vini-booking__check"><img src="assets/vini-booking-check.svg" alt="" /></span>
+                    <p class="m vini-text vini-text--title" style="left: 6.89px; top: 60.27px; width: 54.516px; font-size: 3.7px; line-height: 4.856px">2021 Volvo S60 T4 Inscription</p>
+                    <p class="m vini-text vini-text--sub" style="left: 6.83px; top: 65.83px; font-size: 2.732px; line-height: 3.782px">Grants Pass, OR</p>
+                  </div>
+
+                  <div class="m vini-float vini-views">
+                    <span class="m vini-views__graph"><img src="assets/vini-graph.svg" alt="" /></span>
+                    <p class="m vini-metric-value" style="left: 8.7px; top: 4.99px; font-size: 13.349px; letter-spacing: -0.6674px">+60%</p>
+                    <p class="m vini-metric-label" style="left: 11.15px; top: 18.34px; font-size: 5.933px; letter-spacing: -0.2966px">Views</p>
+                    <img class="m vini-viewer" src="assets/vini-viewer-1.png" style="left: 49.49px" alt="" />
+                    <img class="m vini-viewer" src="assets/vini-viewer-2.png" style="left: 54.76px" alt="" />
+                    <img class="m vini-viewer" src="assets/vini-viewer-3.png" style="left: 60.03px" alt="" />
+                    <img class="m vini-viewer" src="assets/vini-viewer-4.png" style="left: 65.29px" alt="" />
+                  </div>
+                </div>
+              </div>
+              <div class="product-card__result">
+                <h3 class="gradient-text">Vini AI</h3>
+                <p class="product-card__outcome">Sell cars faster with always-on AI workforce</p>
+                <p class="product-card__stat">42%</p>
+                <p class="product-card__label">Higher bookings</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="results" aria-labelledby="results-title">
+        <div class="results__inner">
+          <p class="eyebrow">Results</p>
+          <h2 id="results-title">Real dealerships. Real numbers.</h2>
+          <p class="results__description">A few of the dealers who stopped missing revenue after hours.</p>
+
+          <article class="case-study">
+            <div class="case-study__media">
+              <img src="assets/paragon-honda.png" alt="Paragon Honda dealership, Queens, NY" />
+              <div class="case-study__caption">
+                <p class="case-study__location">Paragon Honda · Queens, NY</p>
+                <p class="case-study__name">Paragon Honda</p>
+              </div>
+            </div>
+            <div class="case-study__body">
+              <blockquote class="case-study__quote">
+                “Agility is everything today. You've got to move at the speed of the market or you're
+                left behind. Spyne gives us that edge.”
+              </blockquote>
+              <p class="case-study__author">Brian Benstock, General Manager and VP, Paragon Honda</p>
+              <dl class="case-study__stats">
+                <div>
+                  <dt>$314K</dt>
+                  <dd>Revenue recovered in 30 days</dd>
+                </div>
+                <div>
+                  <dt>48%</dt>
+                  <dd>Appointment to sale rate</dd>
+                </div>
+                <div>
+                  <dt>53%</dt>
+                  <dd>Recall connect rate</dd>
+                </div>
+              </dl>
+              <a class="case-study__link" href="#">Read the full story →</a>
+            </div>
+          </article>
+
+          <div class="results__footer">
+            <div class="carousel-dots" aria-hidden="true">
+              <span class="carousel-dots__dot is-active"></span>
+              <span class="carousel-dots__dot"></span>
+              <span class="carousel-dots__dot"></span>
+              <span class="carousel-dots__dot"></span>
+            </div>
+            <a class="results__more" href="#">See more customer stories →</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="how-it-works" aria-labelledby="steps-title">
+        <div class="container">
+          <hr class="divider" />
+          <div class="section-intro">
+            <p class="eyebrow">How it Works</p>
+            <h2 id="steps-title">Three steps, no prep needed</h2>
+            <p class="section-intro__description">You share your website. We do the rest.</p>
+          </div>
+
+          <ol class="steps">
+            <li class="step">
+              <div class="step__marker"><span class="step__badge">1</span><span class="step__line"></span></div>
+              <h3>Book your diagnostic</h3>
+              <p>Tell us your dealership and website using the form above.</p>
+            </li>
+            <li class="step">
+              <div class="step__marker"><span class="step__badge">2</span><span class="step__line"></span></div>
+              <h3>We run the scan</h3>
+              <p>Our team reviews your listings, website and lead handling.</p>
+            </li>
+            <li class="step">
+              <div class="step__marker"><span class="step__badge">3</span><span class="step__line"></span></div>
+              <h3>Walk through your gaps</h3>
+              <p>A short call to go through your report and see how each gap can be closed.</p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="final-cta" aria-labelledby="final-title">
+        <div class="container final-cta__inner">
+          <h2 id="final-title">See where your dealership stands</h2>
+          <a class="btn-gradient btn-gradient--cta" href="#book" data-scroll-to-form>
+            Book My Free Diagnostic
+            <img src="assets/arrow-right-cta.svg" width="18" height="18" alt="" />
+          </a>
+          <p class="final-cta__note">Free. No commitment.</p>
         </div>
       </section>
     </main>
+
+    <footer class="site-footer"></footer>
 
     <script src="script.js"></script>
   </body>
