@@ -139,32 +139,26 @@
           <p class="trust-strip__copy">
             Trusted by <strong>4,500+ dealerships</strong> across <strong>70+ countries</strong>
           </p>
-          <ul class="logo-strip">
-            <li class="logo logo--mark">
-              <span class="logo__mark logo__mark--honda">H</span>
-              <span class="logo__name">HONDA</span>
-            </li>
-            <li class="logo logo--stacked">
-              <span class="logo__name logo__name--wide">ASBURY</span>
-              <span class="logo__sub">AUTOMOTIVE GROUP</span>
-            </li>
-            <li class="logo logo--mark">
-              <span class="logo__mark logo__mark--slattery">S</span>
-              <span class="logo__name">SLATTERY</span>
-            </li>
-            <li class="logo logo--stacked">
-              <span class="logo__name logo__name--performance">PERFORMANCE</span>
-              <span class="logo__sub">AUTOMOTIVE NETWORK</span>
-            </li>
-            <li class="logo logo--mark">
-              <span class="logo__mark logo__mark--darrow">D</span>
-              <span class="logo__name">DARROW</span>
-            </li>
-            <li class="logo logo--mark">
-              <span class="logo__mark logo__mark--vincue">V</span>
-              <span class="logo__name">VINCUE</span>
-            </li>
-          </ul>
+          <div class="logo-carousel">
+            <ul class="logo-carousel__track">
+              <li class="logo-carousel__item"><img src="assets/dealers/dealer-1.png" alt="Rohrich" width="118" height="39" /></li>
+              <li class="logo-carousel__item"><img src="assets/dealers/dealer-2.png" alt="Slattery" width="129" height="39" /></li>
+              <li class="logo-carousel__item"><img src="assets/dealers/dealer-3.png" alt="Asbury Automotive Group" width="150" height="39" /></li>
+              <li class="logo-carousel__item"><img src="assets/dealers/dealer-4.png" alt="Walt Massey" width="126" height="39" /></li>
+              <li class="logo-carousel__item"><img src="assets/dealers/dealer-5.png" alt="Darrow Automotive Group" width="147" height="39" /></li>
+              <li class="logo-carousel__item"><img src="assets/dealers/dealer-6.png" alt="Bob Johnson Auto Group" width="135" height="39" /></li>
+              <li class="logo-carousel__item"><img src="assets/dealers/dealer-7.png" alt="Greenway" width="104" height="37" /></li>
+              <li class="logo-carousel__item"><img src="assets/dealers/dealer-8.png" alt="Van Horn" width="94" height="44" /></li>
+              <li class="logo-carousel__item" aria-hidden="true"><img src="assets/dealers/dealer-1.png" alt="" width="118" height="39" /></li>
+              <li class="logo-carousel__item" aria-hidden="true"><img src="assets/dealers/dealer-2.png" alt="" width="129" height="39" /></li>
+              <li class="logo-carousel__item" aria-hidden="true"><img src="assets/dealers/dealer-3.png" alt="" width="150" height="39" /></li>
+              <li class="logo-carousel__item" aria-hidden="true"><img src="assets/dealers/dealer-4.png" alt="" width="126" height="39" /></li>
+              <li class="logo-carousel__item" aria-hidden="true"><img src="assets/dealers/dealer-5.png" alt="" width="147" height="39" /></li>
+              <li class="logo-carousel__item" aria-hidden="true"><img src="assets/dealers/dealer-6.png" alt="" width="135" height="39" /></li>
+              <li class="logo-carousel__item" aria-hidden="true"><img src="assets/dealers/dealer-7.png" alt="" width="104" height="37" /></li>
+              <li class="logo-carousel__item" aria-hidden="true"><img src="assets/dealers/dealer-8.png" alt="" width="94" height="44" /></li>
+            </ul>
+          </div>
         </div>
       </section>
 
@@ -494,47 +488,126 @@
           <h2 id="results-title">Real dealerships. Real numbers.</h2>
           <p class="results__description">A few of the dealers who stopped missing revenue after hours.</p>
 
-          <article class="case-study">
-            <div class="case-study__media">
-              <img src="assets/paragon-honda.png" alt="Paragon Honda dealership, Queens, NY" />
-              <div class="case-study__caption">
-                <p class="case-study__location">Paragon Honda · Queens, NY</p>
-                <p class="case-study__name">Paragon Honda</p>
-              </div>
+          <div class="case-carousel" id="case-carousel" aria-roledescription="carousel" aria-label="Customer case studies">
+            <div class="case-carousel__track">
+              <article class="case-study" aria-roledescription="slide" aria-label="1 of 3">
+                <div class="case-study__media">
+                  <img src="assets/paragon-honda.png" alt="Paragon Honda dealership, Queens, NY" />
+                  <div class="case-study__caption">
+                    <p class="case-study__location">Paragon Honda · Queens, NY</p>
+                    <p class="case-study__name">Paragon Honda</p>
+                  </div>
+                </div>
+                <div class="case-study__body">
+                  <blockquote class="case-study__quote">
+                    “Agility is everything today. You've got to move at the speed of the market or you're
+                    left behind. Spyne gives us that edge.”
+                  </blockquote>
+                  <p class="case-study__author">Brian Benstock, General Manager and VP, Paragon Honda</p>
+                  <dl class="case-study__stats">
+                    <div>
+                      <dt>$314K</dt>
+                      <dd>Revenue recovered in 30 days</dd>
+                    </div>
+                    <div>
+                      <dt>48%</dt>
+                      <dd>Appointment to sale rate</dd>
+                    </div>
+                    <div>
+                      <dt>53%</dt>
+                      <dd>Recall connect rate</dd>
+                    </div>
+                  </dl>
+                  <a class="case-study__link" href="#">Read the full story →</a>
+                </div>
+              </article>
+
+              <article class="case-study" aria-roledescription="slide" aria-label="2 of 3">
+                <div class="case-study__media">
+                  <img src="assets/paragon-honda.png" alt="" />
+                  <div class="case-study__caption">
+                    <p class="case-study__location">Feldmann Imports · Mercedes-Benz</p>
+                    <p class="case-study__name">Feldmann Imports</p>
+                  </div>
+                </div>
+                <div class="case-study__body">
+                  <blockquote class="case-study__quote">
+                    “We've been able to confidently shift most inbound calls to Spyne, allowing our BDC
+                    team to focus on outbound activities and higher-value customer interactions.”
+                  </blockquote>
+                  <p class="case-study__author">Joe Feldmann, General Manager, Feldmann Imports</p>
+                  <dl class="case-study__stats">
+                    <div>
+                      <dt>+35%</dt>
+                      <dd>Demand captured</dd>
+                    </div>
+                    <div>
+                      <dt>+25%</dt>
+                      <dd>Repair order lift</dd>
+                    </div>
+                    <div>
+                      <dt>50+</dt>
+                      <dd>Additional monthly appointments</dd>
+                    </div>
+                  </dl>
+                  <a class="case-study__link" href="#">Read the full story →</a>
+                </div>
+              </article>
+
+              <article class="case-study" aria-roledescription="slide" aria-label="3 of 3">
+                <div class="case-study__media">
+                  <img src="assets/paragon-honda.png" alt="" />
+                  <div class="case-study__caption">
+                    <p class="case-study__location">McGrath Acura · Westmont, IL</p>
+                    <p class="case-study__name">McGrath Acura</p>
+                  </div>
+                </div>
+                <div class="case-study__body">
+                  <blockquote class="case-study__quote">
+                    “Vini AI helped us capture and respond to leads we were previously missing, especially
+                    beyond business hours.”
+                  </blockquote>
+                  <p class="case-study__author">Amy Brosnan, BDC Manager, McGrath Acura of Westmont</p>
+                  <dl class="case-study__stats">
+                    <div>
+                      <dt>+25%</dt>
+                      <dd>Demand captured</dd>
+                    </div>
+                    <div>
+                      <dt>15%</dt>
+                      <dd>Bookings now after hours</dd>
+                    </div>
+                    <div>
+                      <dt>40%</dt>
+                      <dd>Qualified to booking rate</dd>
+                    </div>
+                  </dl>
+                  <a class="case-study__link" href="#">Read the full story →</a>
+                </div>
+              </article>
             </div>
-            <div class="case-study__body">
-              <blockquote class="case-study__quote">
-                “Agility is everything today. You've got to move at the speed of the market or you're
-                left behind. Spyne gives us that edge.”
-              </blockquote>
-              <p class="case-study__author">Brian Benstock, General Manager and VP, Paragon Honda</p>
-              <dl class="case-study__stats">
-                <div>
-                  <dt>$314K</dt>
-                  <dd>Revenue recovered in 30 days</dd>
-                </div>
-                <div>
-                  <dt>48%</dt>
-                  <dd>Appointment to sale rate</dd>
-                </div>
-                <div>
-                  <dt>53%</dt>
-                  <dd>Recall connect rate</dd>
-                </div>
-              </dl>
-              <a class="case-study__link" href="#">Read the full story →</a>
-            </div>
-          </article>
+          </div>
 
           <div class="results__footer">
-            <div class="carousel-dots" aria-hidden="true">
-              <span class="carousel-dots__dot is-active"></span>
-              <span class="carousel-dots__dot"></span>
-              <span class="carousel-dots__dot"></span>
-              <span class="carousel-dots__dot"></span>
+            <div class="carousel-dots" role="group" aria-label="Choose a case study">
+              <button type="button" class="carousel-dots__dot is-active" aria-label="Show case study 1" aria-current="true"></button>
+              <button type="button" class="carousel-dots__dot" aria-label="Show case study 2"></button>
+              <button type="button" class="carousel-dots__dot" aria-label="Show case study 3"></button>
             </div>
-            <a class="results__more" href="#">See more customer stories →</a>
+            <div class="carousel-arrows">
+              <button type="button" class="carousel-arrow" data-carousel-prev aria-label="Previous case study">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+                  <path d="M14.2506 9H3.7494M9 3.7494L3.7494 9L9 14.2506" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
+              <button type="button" class="carousel-arrow" data-carousel-next aria-label="Next case study">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+                  <path d="M3.7494 9H14.2506M9 14.2506L14.2506 9L9 3.7494" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
+            </div>
           </div>
+          <a class="results__more" href="https://www.spyne.ai/case-study">See more customer stories →</a>
         </div>
       </section>
 

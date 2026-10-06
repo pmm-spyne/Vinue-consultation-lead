@@ -266,6 +266,8 @@ a {
   justify-content: center;
   align-items: flex-start;
   gap: 28px;
+  /* Reserves room for the absolutely positioned partner logo (47px + gap) when the booking card is short. */
+  padding-block: 75px;
 }
 
 .hero__partners {
@@ -504,82 +506,75 @@ a {
   color: var(--ink);
 }
 
-.logo-strip {
+.logo-carousel {
+  width: 100%;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 12%, #000 88%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 12%, #000 88%, transparent 100%);
+}
+
+/* Items use padding rather than gap so both halves of the duplicated track are equal width for a seamless -50% loop. */
+.logo-carousel__track {
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
+  width: max-content;
+  animation: logo-marquee 28s linear infinite;
+}
+
+.logo-carousel:hover .logo-carousel__track {
+  animation-play-state: paused;
+}
+
+.logo-carousel__item {
+  display: flex;
+  flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  gap: 16px 48px;
+  height: 36px;
+  padding: 0 36px;
 }
 
-.logo {
-  display: flex;
-  align-items: center;
-  opacity: 0.45;
-  color: var(--ink);
-  font-weight: 700;
-  white-space: nowrap;
+.logo-carousel__item img {
+  width: auto;
+  max-width: 150px;
+  height: 100%;
+  object-fit: contain;
+  filter: brightness(0);
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
 }
 
-.logo--mark {
-  gap: 5px;
+.logo-carousel__item img:hover {
+  opacity: 0.9;
 }
 
-.logo--stacked {
-  flex-direction: column;
+@keyframes logo-marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
 }
 
-.logo__mark {
-  display: grid;
-  place-items: center;
-  width: 20px;
-  height: 20px;
-  color: #fff;
-  font-size: 11px;
-}
+@media (prefers-reduced-motion: reduce) {
+  .logo-carousel {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
 
-.logo__mark--honda {
-  width: 22px;
-  height: 22px;
-  border-radius: 3px;
-  background: var(--ink);
-  font-size: 13px;
-}
+  .logo-carousel__track {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 24px 0;
+    width: 100%;
+    animation: none;
+  }
 
-.logo__mark--slattery {
-  border-radius: 10px;
-  background: #1d4ed8;
-}
-
-.logo__mark--darrow {
-  border-radius: 2px;
-  background: var(--ink);
-}
-
-.logo__mark--vincue {
-  border-radius: 10px;
-  background: #059669;
-}
-
-.logo__name {
-  font-size: 14px;
-  letter-spacing: 0.28px;
-}
-
-.logo__name--wide {
-  letter-spacing: 0.42px;
-}
-
-.logo__name--performance {
-  font-size: 13px;
-  letter-spacing: 0.39px;
-}
-
-.logo__sub {
-  font-size: 9px;
-  font-weight: 400;
-  letter-spacing: 0.45px;
-  color: var(--muted);
+  .logo-carousel__item[aria-hidden="true"] {
+    display: none;
+  }
 }
 
 /* Sections */
@@ -1646,10 +1641,25 @@ a {
   color: var(--stone);
 }
 
+/* Bottom padding (cancelled by the negative margin) keeps the card shadow from being clipped by overflow: hidden. */
+.case-carousel {
+  margin: 62px 0 -56px;
+  padding-bottom: 56px;
+  overflow: hidden;
+  touch-action: pan-y;
+}
+
+.case-carousel__track {
+  --case-gap: 32px;
+  display: flex;
+  gap: var(--case-gap);
+  transition: transform 0.6s var(--ease);
+}
+
 .case-study {
   display: grid;
+  flex: 0 0 100%;
   grid-template-columns: 42.43% 1fr;
-  margin-top: 62px;
   overflow: hidden;
   border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 20px;
@@ -1763,8 +1773,7 @@ a {
   text-decoration: none;
 }
 
-.case-study__link:hover,
-.results__more:hover {
+.case-study__link:hover {
   text-decoration: underline;
   text-underline-offset: 3px;
 }
@@ -1786,8 +1795,16 @@ a {
 .carousel-dots__dot {
   width: 7.869px;
   height: 7.869px;
+  padding: 0;
+  border: 0;
   border-radius: 999px;
   background: rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: width 0.3s var(--ease), background-color 0.3s var(--ease);
+}
+
+.carousel-dots__dot:hover {
+  background: rgba(0, 0, 0, 0.3);
 }
 
 .carousel-dots__dot.is-active {
@@ -1795,13 +1812,58 @@ a {
   background: var(--ink-strong);
 }
 
+.carousel-arrows {
+  display: flex;
+  gap: 10px;
+}
+
+.carousel-arrow {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--ink-strong);
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.carousel-arrow:hover {
+  border-color: #9333ea;
+  background: #faf5ff;
+  color: #9333ea;
+}
+
+.carousel-arrow:focus-visible {
+  outline: 2px solid var(--purple);
+  outline-offset: 2px;
+}
+
 .results__more {
+  display: block;
+  width: fit-content;
+  margin: 20px 6px 0 auto;
   font-family: var(--font-geist);
   font-size: 13.279px;
   font-weight: 500;
   line-height: 19.918px;
-  color: var(--stone);
-  text-decoration: none;
+  color: #9333ea;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+
+.results__more:hover {
+  color: #7e22ce;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .case-carousel__track {
+    transition: none;
+  }
 }
 
 /* How it works */
@@ -1943,6 +2005,10 @@ a {
     padding-top: 56px;
   }
 
+  .hero__promise {
+    padding-block: 0;
+  }
+
   .hero__partners {
     position: static;
   }
@@ -1996,7 +2062,7 @@ a {
     padding: 64px 0;
   }
 
-  .case-study {
+  .case-carousel {
     margin-top: 40px;
   }
 
@@ -2018,8 +2084,9 @@ a {
     min-width: 560px;
   }
 
-  .logo-strip {
-    gap: 16px 32px;
+  .logo-carousel__item {
+    height: 30px;
+    padding: 0 24px;
   }
 }
 
@@ -2062,6 +2129,10 @@ a {
   .results__footer {
     padding-left: 0;
     padding-right: 0;
+  }
+
+  .results__more {
+    margin-right: 0;
   }
 }
 

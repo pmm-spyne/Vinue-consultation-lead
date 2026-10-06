@@ -189,6 +189,108 @@ resetBtn.addEventListener("click", () => {
   form.name.focus();
 });
 
+function initCaseCarousel() {
+  const carousel = document.getElementById("case-carousel");
+  if (!carousel) return;
+
+  const track = carousel.querySelector(".case-carousel__track");
+  const slides = Array.from(track.children);
+  const dots = Array.from(document.querySelectorAll(".results .carousel-dots__dot"));
+  const AUTOPLAY_MS = 7000;
+  const SWIPE_THRESHOLD = 40;
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const section = carousel.closest(".results");
+
+  let index = 0;
+  let timer = null;
+  let touchStartX = null;
+  let hovered = false;
+  let focused = false;
+
+  function goTo(next) {
+    index = (next + slides.length) % slides.length;
+    track.style.transform = `translateX(calc(${-index} * (100% + var(--case-gap))))`;
+
+    slides.forEach((slide, i) => {
+      const active = i === index;
+      slide.inert = !active;
+      slide.setAttribute("aria-hidden", String(!active));
+    });
+
+    dots.forEach((dot, i) => {
+      const active = i === index;
+      dot.classList.toggle("is-active", active);
+      if (active) dot.setAttribute("aria-current", "true");
+      else dot.removeAttribute("aria-current");
+    });
+  }
+
+  function stop() {
+    clearInterval(timer);
+    timer = null;
+  }
+
+  function start() {
+    if (reduceMotion || timer || hovered || focused) return;
+    timer = setInterval(() => goTo(index + 1), AUTOPLAY_MS);
+  }
+
+  function goToAndRestart(next) {
+    goTo(next);
+    stop();
+    start();
+  }
+
+  dots.forEach((dot, i) => {
+    dot.addEventListener("click", () => goToAndRestart(i));
+  });
+
+  section.querySelector("[data-carousel-prev]")?.addEventListener("click", () => goToAndRestart(index - 1));
+  section.querySelector("[data-carousel-next]")?.addEventListener("click", () => goToAndRestart(index + 1));
+
+  carousel.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowRight") goTo(index + 1);
+    else if (event.key === "ArrowLeft") goTo(index - 1);
+  });
+
+  carousel.addEventListener("touchstart", (event) => {
+    touchStartX = event.touches[0].clientX;
+    stop();
+  }, { passive: true });
+
+  carousel.addEventListener("touchend", (event) => {
+    if (touchStartX === null) return;
+    const delta = event.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(delta) > SWIPE_THRESHOLD) goTo(index + (delta < 0 ? 1 : -1));
+    touchStartX = null;
+    start();
+  });
+
+  section.addEventListener("mouseenter", () => {
+    hovered = true;
+    stop();
+  });
+  section.addEventListener("mouseleave", () => {
+    hovered = false;
+    start();
+  });
+  section.addEventListener("focusin", () => {
+    focused = true;
+    stop();
+  });
+  section.addEventListener("focusout", (event) => {
+    if (section.contains(event.relatedTarget)) return;
+    focused = false;
+    start();
+  });
+
+  goTo(0);
+  start();
+}
+
+initCaseCarousel();
+
 document.querySelectorAll("[data-scroll-to-form]").forEach((link) => {
   link.addEventListener("click", (event) => {
     event.preventDefault();
