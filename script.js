@@ -1,9 +1,15 @@
+const HUBSPOT_PORTAL_ID = "242626590";
+const HUBSPOT_FORM_ID = "2fa361a5-94e4-4c94-8d88-fb9ef08682c9";
+const HUBSPOT_SUBMIT_HOST = "https://api.hsforms.com"; // account region is na2; change only if submissions fail
+
 const form = document.getElementById("diagnostic-form");
 const formShell = document.getElementById("form-shell");
 const successShell = document.getElementById("success-shell");
 const formError = document.getElementById("form-error");
 const resetBtn = document.getElementById("reset-btn");
-const rooftops = document.getElementById("rooftops");
+const submitBtn = document.getElementById("submit-btn");
+const submitLabel = submitBtn.querySelector(".btn-gradient__label");
+const submitLabelDefault = submitLabel.textContent;
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -49,11 +55,10 @@ function validate() {
   const missing = [];
   if (!name) missing.push(form.name);
   if (!email) missing.push(form.email);
-  if (!website) missing.push(form.website);
 
   if (missing.length) {
     missing.forEach(markInvalid);
-    setError("Please add your name, work email and dealership website.");
+    setError("Please add your name and work email.");
     missing[0].focus();
     return false;
   }
@@ -65,7 +70,7 @@ function validate() {
     return false;
   }
 
-  if (!isValidWebsite(website)) {
+  if (website && !isValidWebsite(website)) {
     markInvalid(form.website);
     setError("Enter a valid website, e.g. https://yourdealership.com");
     form.website.focus();
@@ -75,29 +80,97 @@ function validate() {
   return true;
 }
 
-function syncSelectPlaceholder() {
-  rooftops.classList.toggle("is-placeholder", !rooftops.value);
+function getCookie(name) {
+  const match = document.cookie.match(new RegExp(`(?:^|;\\s*)${name}=([^;]*)`));
+  return match ? decodeURIComponent(match[1]) : "";
 }
 
-form.addEventListener("submit", (event) => {
+function buildPayload() {
+  const [firstname, ...rest] = form.name.value.trim().split(/\s+/);
+  const lastname = rest.join(" ");
+  const website = form.website.value.trim();
+
+  const entries = [
+    ["0-1", "firstname", firstname],
+    ["0-1", "lastname", lastname],
+    ["0-1", "email", form.email.value.trim()],
+    ["0-1", "mobilephone", form.phone.value.trim()],
+    ["0-2", "dealership_group_name", form.dealership.value.trim()],
+    ["0-2", "website", normalizeWebsite(website)],
+    ["0-1", "number_of_rooftops", form.rooftops.value.trim()],
+  ];
+
+  const fields = entries
+    .filter(([, , value]) => value)
+    .map(([objectTypeId, name, value]) => ({ objectTypeId, name, value }));
+
+  const context = { pageUri: window.location.href, pageName: document.title };
+  const hutk = getCookie("hubspotutk");
+  if (hutk) context.hutk = hutk;
+
+  return { fields, context };
+}
+
+function setSubmitting(isSubmitting) {
+  submitBtn.disabled = isSubmitting;
+  submitBtn.classList.toggle("is-loading", isSubmitting);
+  submitBtn.setAttribute("aria-busy", String(isSubmitting));
+  submitLabel.textContent = isSubmitting ? "Booking…" : submitLabelDefault;
+}
+
+function describeHubSpotError(body) {
+  const errors = (body && body.errors) || [];
+  if (errors.some((e) => e.errorType === "BLOCKED_EMAIL")) {
+    markInvalid(form.email);
+    return "Please use your work email address.";
+  }
+  if (errors.some((e) => e.errorType === "INVALID_EMAIL")) {
+    markInvalid(form.email);
+    return "Enter a valid work email address.";
+  }
+  return "Something went wrong submitting the form. Please try again.";
+}
+
+async function submitToHubSpot(payload) {
+  const url = `${HUBSPOT_SUBMIT_HOST}/submissions/v3/integration/submit/${HUBSPOT_PORTAL_ID}/${HUBSPOT_FORM_ID}`;
+  const response = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+
+  const text = await response.text();
+  let body = text;
+  try {
+    body = text ? JSON.parse(text) : null;
+  } catch {}
+
+  return { ok: response.ok, status: response.status, body };
+}
+
+form.addEventListener("submit", async (event) => {
   event.preventDefault();
-  if (!validate()) return;
+  if (submitBtn.disabled || !validate()) return;
 
-  // Frontend-only for now — payload ready for a future API.
-  const payload = {
-    name: form.name.value.trim(),
-    email: form.email.value.trim(),
-    phone: form.phone.value.trim(),
-    dealership: form.dealership.value.trim(),
-    website: normalizeWebsite(form.website.value.trim()),
-    rooftops: rooftops.value,
-    source: "Vincue Booth",
-  };
+  setSubmitting(true);
 
-  console.log("Diagnostic booked:", payload);
+  try {
+    const result = await submitToHubSpot(buildPayload());
 
-  formShell.hidden = true;
-  successShell.hidden = false;
+    if (!result.ok) {
+      console.error(`HubSpot submission failed (${result.status}):`, result.body);
+      setError(describeHubSpotError(result.body));
+      return;
+    }
+
+    formShell.hidden = true;
+    successShell.hidden = false;
+  } catch (error) {
+    console.error("HubSpot submission failed:", error);
+    setError("We couldn't reach the server. Check your connection and try again.");
+  } finally {
+    setSubmitting(false);
+  }
 });
 
 form.addEventListener("input", (event) => {
@@ -107,13 +180,10 @@ form.addEventListener("input", (event) => {
   }
 });
 
-rooftops.addEventListener("change", syncSelectPlaceholder);
-
 resetBtn.addEventListener("click", () => {
   form.reset();
   clearInvalidStates();
   setError("");
-  syncSelectPlaceholder();
   successShell.hidden = true;
   formShell.hidden = false;
   form.name.focus();
@@ -128,5 +198,3 @@ document.querySelectorAll("[data-scroll-to-form]").forEach((link) => {
     }
   });
 });
-
-syncSelectPlaceholder();

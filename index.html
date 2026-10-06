@@ -15,6 +15,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
+    <!-- PASTE HUBSPOT TRACKING CODE HERE (HubSpot Settings > Tracking & Analytics > Tracking code) -->
   </head>
   <body>
     <header class="site-nav">
@@ -70,12 +71,12 @@
 
               <form id="diagnostic-form" novalidate>
                 <div class="field">
-                  <label for="name">Full name</label>
+                  <label for="name">Full name *</label>
                   <input id="name" name="name" type="text" autocomplete="name" placeholder="Your full name" required />
                 </div>
 
                 <div class="field">
-                  <label for="email">Work email</label>
+                  <label for="email">Work email *</label>
                   <input id="email" name="email" type="email" autocomplete="email" placeholder="you@dealership.com" required />
                 </div>
 
@@ -90,8 +91,8 @@
                   </div>
                 </div>
 
-                <div class="field field--with-hint">
-                  <label for="website">Dealership website *</label>
+                <div class="field">
+                  <label for="website">Dealership website</label>
                   <input
                     id="website"
                     name="website"
@@ -99,31 +100,18 @@
                     inputmode="url"
                     autocomplete="url"
                     placeholder="https://yourdealership.com"
-                    aria-describedby="website-hint"
-                    required
                   />
-                  <p class="field__hint" id="website-hint">Required to run the scan.</p>
                 </div>
 
                 <div class="field">
                   <label for="rooftops">Number of rooftops</label>
-                  <div class="select">
-                    <select id="rooftops" name="rooftops">
-                      <option value="" selected>Select number of rooftops</option>
-                      <option value="1">1 rooftop</option>
-                      <option value="2-5">2–5 rooftops</option>
-                      <option value="6-10">6–10 rooftops</option>
-                      <option value="11-25">11–25 rooftops</option>
-                      <option value="25+">25+ rooftops</option>
-                    </select>
-                    <img src="assets/chevron-down.svg" width="15" height="15" alt="" />
-                  </div>
+                  <input id="rooftops" name="rooftops" type="text" placeholder="e.g. 3" />
                 </div>
 
                 <p class="form-error" id="form-error" role="alert" hidden></p>
 
-                <button type="submit" class="btn-gradient btn-gradient--form">
-                  Book My Free Diagnostic
+                <button type="submit" class="btn-gradient btn-gradient--form" id="submit-btn">
+                  <span class="btn-gradient__label">Book My Free Diagnostic</span>
                   <img src="assets/arrow-right.svg" width="18" height="18" alt="" />
                 </button>
               </form>

@@ -362,12 +362,6 @@ a {
   color: var(--text-label);
 }
 
-.field--with-hint .field__hint {
-  margin-top: -1px;
-  font-size: 11px;
-  color: var(--muted);
-}
-
 .field-row {
   display: flex;
   gap: 14px;
@@ -377,8 +371,7 @@ a {
   flex: 1 1 0;
 }
 
-.field input,
-.select select {
+.field input {
   width: 100%;
   height: 44px;
   padding: 0 12px;
@@ -398,13 +391,11 @@ a {
   opacity: 1;
 }
 
-.field input:hover,
-.select select:hover {
+.field input:hover {
   border-color: #b9bec7;
 }
 
-.field input:focus,
-.select select:focus {
+.field input:focus {
   border-color: var(--purple);
   box-shadow: 0 0 0 3px rgba(176, 97, 249, 0.18);
 }
@@ -414,30 +405,6 @@ a {
   box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12);
 }
 
-.select {
-  position: relative;
-}
-
-.select select {
-  padding-right: 36px;
-  appearance: none;
-  -webkit-appearance: none;
-  cursor: pointer;
-}
-
-.select select:invalid,
-.select select.is-placeholder {
-  color: var(--subtle);
-}
-
-.select img {
-  position: absolute;
-  top: 50%;
-  right: 12px;
-  transform: translateY(-50%);
-  pointer-events: none;
-}
-
 .form-error {
   font-size: 12px;
   color: #b91c1c;
@@ -445,6 +412,33 @@ a {
 
 #diagnostic-form .btn-gradient--form {
   margin-top: 6px;
+}
+
+.btn-gradient:disabled {
+  cursor: progress;
+  opacity: 0.85;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-gradient.is-loading img {
+  display: none;
+}
+
+.btn-gradient.is-loading::after {
+  content: "";
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.45);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: btn-spin 0.7s linear infinite;
+}
+
+@keyframes btn-spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .reassurance {
@@ -2099,8 +2093,11 @@ a {
   .btn-gradient,
   .btn-gradient img,
   .btn-ghost,
-  .field input,
-  .select select {
+  .field input {
     transition: none;
+  }
+
+  .btn-gradient.is-loading::after {
+    animation-duration: 1.6s;
   }
 }
