@@ -1,6 +1,8 @@
 const HUBSPOT_PORTAL_ID = "242626590";
 const HUBSPOT_FORM_ID = "2fa361a5-94e4-4c94-8d88-fb9ef08682c9";
 const HUBSPOT_SUBMIT_HOST = "https://api.hsforms.com"; // account region is na2; change only if submissions fail
+const SHEETS_WEBHOOK_URL =
+  "https://script.google.com/macros/s/AKfycbzmFs6q0ge0KS26oemxWUBt7egrtHA3lZmPDGkI1G4uRwvay65KZmXvJLSrnOf5AdfW/exec";
 
 const form = document.getElementById("diagnostic-form");
 const formShell = document.getElementById("form-shell");
@@ -118,19 +120,6 @@ function setSubmitting(isSubmitting) {
   submitLabel.textContent = isSubmitting ? "Booking…" : submitLabelDefault;
 }
 
-function describeHubSpotError(body) {
-  const errors = (body && body.errors) || [];
-  if (errors.some((e) => e.errorType === "BLOCKED_EMAIL")) {
-    markInvalid(form.email);
-    return "Please use your work email address.";
-  }
-  if (errors.some((e) => e.errorType === "INVALID_EMAIL")) {
-    markInvalid(form.email);
-    return "Enter a valid work email address.";
-  }
-  return "Something went wrong submitting the form. Please try again.";
-}
-
 async function submitToHubSpot(payload) {
   const url = `${HUBSPOT_SUBMIT_HOST}/submissions/v3/integration/submit/${HUBSPOT_PORTAL_ID}/${HUBSPOT_FORM_ID}`;
   const response = await fetch(url, {
@@ -148,28 +137,59 @@ async function submitToHubSpot(payload) {
   return { ok: response.ok, status: response.status, body };
 }
 
+function buildSheetRow() {
+  return {
+    name: form.name.value.trim(),
+    email: form.email.value.trim(),
+    phone: form.phone.value.trim(),
+    dealership: form.dealership.value.trim(),
+    website: normalizeWebsite(form.website.value.trim()),
+    rooftops: form.rooftops.value.trim(),
+    pageUri: window.location.href,
+  };
+}
+
+// Apps Script doesn't send CORS headers, so the response is opaque: this only rejects on network failure.
+function submitToSheet(row) {
+  return fetch(SHEETS_WEBHOOK_URL, {
+    method: "POST",
+    mode: "no-cors",
+    keepalive: true,
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
+    body: JSON.stringify(row),
+  });
+}
+
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
   if (submitBtn.disabled || !validate()) return;
 
   setSubmitting(true);
 
-  try {
-    const result = await submitToHubSpot(buildPayload());
+  const [hubspot, sheet] = await Promise.allSettled([
+    submitToHubSpot(buildPayload()),
+    submitToSheet(buildSheetRow()),
+  ]);
 
-    if (!result.ok) {
-      console.error(`HubSpot submission failed (${result.status}):`, result.body);
-      setError(describeHubSpotError(result.body));
-      return;
-    }
+  if (hubspot.status === "rejected") {
+    console.error("HubSpot submission failed:", hubspot.reason);
+  } else if (!hubspot.value.ok) {
+    console.error(`HubSpot submission failed (${hubspot.value.status}):`, hubspot.value.body);
+  }
+  if (sheet.status === "rejected") {
+    console.error("Sheet submission failed:", sheet.reason);
+  }
 
+  const hubspotOk = hubspot.status === "fulfilled" && hubspot.value.ok;
+  const sheetOk = sheet.status === "fulfilled";
+
+  setSubmitting(false);
+
+  if (hubspotOk || sheetOk) {
     formShell.hidden = true;
     successShell.hidden = false;
-  } catch (error) {
-    console.error("HubSpot submission failed:", error);
+  } else {
     setError("We couldn't reach the server. Check your connection and try again.");
-  } finally {
-    setSubmitting(false);
   }
 });
 
